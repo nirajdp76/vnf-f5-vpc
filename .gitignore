@@ -1,0 +1,4 @@
+.gitignore
+*.tfvars
+terraform.*
+.DS_Store
