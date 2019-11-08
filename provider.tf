@@ -1,11 +1,11 @@
+variable "ibmcloud_api_key" {
+  default = ""
+  description = "The APIKey of the IBM Cloud account where resources will be provisioned."
+}
+
 variable "region" {
   default = "us-south"
   description = "The VPC Region that you want your VPC, networks and the F5 virtual server to be provisioned in. To list available regions, run `ibmcloud is regions`."
-}
-
-variable "riaas_endpoint" {
-  default = "us-south.iaas.cloud.ibm.com"
-  description = "The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`."
 }
 
 variable "generation" {
@@ -14,6 +14,7 @@ variable "generation" {
 }
 
 provider "ibm" {
+  ibmcloud_api_key      = "${var.ibmcloud_api_key}"
   generation            = "${var.generation}"
   region                = "${var.region}"
   ibmcloud_timeout      = 300

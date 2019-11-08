@@ -48,15 +48,14 @@ Before you apply your template, you can customize the following default variable
 
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
-|`IBMCLOUD_IS_NG_API_ENDPOINT`|The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`.|`us-south.iaas.cloud.ibm.com`|
-|`riaas_endpoint`|The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`.|`us-south.iaas.cloud.ibm.com`|
+|`ibmcloud_api_key`|The APIKey of the IBM Cloud account where resources will be provisioned.||
 |`generation`|The VPC Generation to target. Valid values are 2 or 1..|`2`|
 |`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|
 |`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned. To list available zones, run `ibmcloud is zones`.|`us-south-1`|
 |`vpc_name`|The name of your VPC to be provisioned.|`f5-bigip-1nic-demo-vpc`|
 |`ssh_key_name`|The name of your public SSH key.|`f5-ssh-pub-ke`|
 |`f5_vsi_name`|The name of your F5 Virtual Server to be provisioned.|`f5-bigip-1nic-demo-appliance`|
-|`profile`|Enter the profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`.|`bc1-2x8`|
+|`profile`|Enter the profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`.|`bx2-2x8`|
 |`f5_license`|Optional: The BYOL license key that you want your F5 virtual server in a VPC to be used by registration flow during cloud-init.|`None`|
 
 ## Outputs
