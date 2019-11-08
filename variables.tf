@@ -29,7 +29,7 @@ variable "f5_vsi_name" {
 }
 
 variable "profile" {
-  default = "bc1-2x8"
+  default = "bx2-2x8"
   description = "The profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`."
 }
 
