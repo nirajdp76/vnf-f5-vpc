@@ -8,8 +8,13 @@ variable "riaas_endpoint" {
   description = "The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`."
 }
 
+variable "generation" {
+  default = 2
+  description = "The VPC Generation to target. Valid values are 2 or 1."
+}
+
 provider "ibm" {
-  generation            = 2
+  generation            = "${var.generation}"
   region                = "${var.region}"
   ibmcloud_timeout      = 300
   riaas_endpoint        = "${var.riaas_endpoint}"

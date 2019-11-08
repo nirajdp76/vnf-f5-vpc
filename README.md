@@ -49,6 +49,7 @@ Before you apply your template, you can customize the following default variable
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
 |`riaas_endpoint`|The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`.|`us-south.iaas.cloud.ibm.com`|
+|`generation`|The VPC Generation to target. Valid values are 2 or 1..|`2`|
 |`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|
 |`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned. To list available zones, run `ibmcloud is zones`.|`us-south-1`|
 |`vpc_name`|The name of your VPC to be provisioned.|`f5-bigip-1nic-demo-vpc`|
