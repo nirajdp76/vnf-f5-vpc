@@ -48,7 +48,6 @@ Before you apply your template, you can customize the following default variable
 
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
-|`ibmcloud_api_key`|The APIKey of the IBM Cloud account where resources will be provisioned.||
 |`generation`|The VPC Generation to target. Valid values are 2 or 1..|`2`|
 |`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|
 |`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned. To list available zones, run `ibmcloud is zones`.|`us-south-1`|

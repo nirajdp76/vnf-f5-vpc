@@ -1,7 +1,7 @@
-variable "ibmcloud_api_key" {
-  default = ""
-  description = "The APIKey of the IBM Cloud account where resources will be provisioned."
-}
+#variable "ibmcloud_api_key" {
+#  default = ""
+#  description = "The APIKey of the IBM Cloud account where resources will be provisioned."
+#}
 
 variable "region" {
   default = "us-south"
@@ -14,7 +14,7 @@ variable "generation" {
 }
 
 provider "ibm" {
-  ibmcloud_api_key      = "${var.ibmcloud_api_key}"
+#  ibmcloud_api_key      = "${var.ibmcloud_api_key}"
   generation            = "${var.generation}"
   region                = "${var.region}"
   ibmcloud_timeout      = 300
