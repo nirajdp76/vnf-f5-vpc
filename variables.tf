@@ -1,6 +1,6 @@
 variable "IBMCLOUD_IS_NG_API_ENDPOINT" {
   default = "us-south-stage01.iaasdev.cloud.ibm.com"
-  description = "The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`.".
+  description = "The VPC Regional api endpoint. To list available regional endpoints, run `ibmcloud is regions`."
 }
 
 variable "zone" {
