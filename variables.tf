@@ -1,6 +1,11 @@
 variable "zone" {
   default = "us-south-1"
-  description = "The VPC Zone that you want your VPC virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`."
+  description = "The VPC Zone that you want your VPC networks and virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`."
+}
+
+variable "vpc_name" {
+  default = "f5-bigip-1nic-demo-vpc"
+  description = "The name of your VPC to be provisioned."
 }
 
 variable "ssh_public_key" {
@@ -9,7 +14,7 @@ variable "ssh_public_key" {
 }
 
 variable "ssh_key_name" {
-  default = "VPCF5_ssh_key"
+  default = "f5-ssh-pub-key"
   description = "The name of the public SSH key."
 }
 
@@ -18,9 +23,9 @@ variable "f5_image" {
   description = "The ID of the F5 custom image provisioned in your IBM Cloud account. To list available images, run `ibmcloud is images`. The default image is for an `f5-bigip` image in a demo account."
 }
 
-variable "backend_image" {
-  default = "bf962ae4-4140-462b-8fa3-56fa1b49b06a"
-  description = "The ID of the image that represents the operating system that you want to install on your VPC as a demo application server. To list available images, run `ibmcloud is images`. The default image is for an `ibm-ubuntu-18-04-64` OS."
+variable "f5_vsi_name" {
+  default = "f5-bigip-1nic-demo-appliance"
+  description = "The name of your F5 Virtual Server to be provisioned."
 }
 
 variable "profile" {

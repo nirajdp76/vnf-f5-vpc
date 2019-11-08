@@ -1,5 +1,5 @@
 resource "ibm_is_vpc" "vpc1" {
-  name = "f5-bigip-1nic-demo"
+  name = "${var.vpc_name}"
 }
 
 resource "ibm_is_security_group" "sg1" {
@@ -26,7 +26,7 @@ resource "ibm_is_security_group_rule" "sg1_rule1" {
   remote     = "0.0.0.0/0"
 
   tcp = {
-    port_min = 6120
+    port_min = 8443
     port_max = 8443
   }
 }
@@ -85,11 +85,12 @@ resource "ibm_is_ssh_key" "ssh1" {
 }
 
 resource "ibm_is_instance" "ins1" {
-  name    = "f5-bigip-1nic-demo-appliance"
+  name    = "${var.f5_vsi_name}"
   image   = "${var.f5_image}"
   profile = "${var.profile}"
 
   primary_network_interface = {
+    port_speed = "1000"
     subnet = "${ibm_is_subnet.subnet1.id}"
   }
 
@@ -100,62 +101,8 @@ resource "ibm_is_instance" "ins1" {
 
   //User can configure timeouts
   timeouts {
-    create = "90m"
-    delete = "30m"
-  }
-}
-
-resource "ibm_is_instance" "backendapp1" {
-  name    = "f5-bigip-1nic-demo-app01"
-  image   = "${var.backend_image}"
-  profile = "${var.profile}"
-
-  primary_network_interface = {
-    subnet = "${ibm_is_subnet.subnet1.id}"
-  }
-
-  vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone}"
-  keys = ["${ibm_is_ssh_key.ssh1.id}"]
-  user_data = <<EOF
-#!/bin/bash -v
-apt-get update -y
-apt-get install -y nginx > /tmp/nginx.log
-service nginx start
-sed -i 's/Thank you for using nginx./Backend Server <b>One<\/b> is serving this request./g' /var/www/html/index.nginx-debian.html 2>&1 >/dev/null
-EOF
-
-  //User can configure timeouts
-  timeouts {
-    create = "90m"
-    delete = "30m"
-  }
-}
-
-resource "ibm_is_instance" "backendapp2" {
-  name    = "f5-bigip-1nic-demo-app02"
-  image   = "${var.backend_image}"
-  profile = "${var.profile}"
-
-  primary_network_interface = {
-    subnet = "${ibm_is_subnet.subnet1.id}"
-  }
-
-  vpc  = "${ibm_is_vpc.vpc1.id}"
-  zone = "${var.zone}"
-  keys = ["${ibm_is_ssh_key.ssh1.id}"]
-  user_data =  <<EOF
-#!/bin/bash -v
-apt-get update -y
-apt-get install -y nginx > /tmp/nginx.log
-service nginx start
-sed -i 's/Thank you for using nginx./Backend Server <b>Two<\/b> is serving this request./g' /var/www/html/index.nginx-debian.html 2>&1 >/dev/null
-EOF
-
-  //User can configure timeouts
-  timeouts {
-    create = "90m"
-    delete = "30m"
+    create = "10m"
+    delete = "10m"
   }
 }
 
@@ -171,6 +118,6 @@ resource "ibm_is_public_gateway" "gateway1" {
 
   //User can configure timeouts
   timeouts {
-    create = "90m"
+    create = "10m"
   }
 }

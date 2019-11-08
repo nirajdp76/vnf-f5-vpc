@@ -5,10 +5,10 @@ With this template, you can use IBM Cloud Schematics to create F5-BIGIP virtual 
 **Included**:
 * 1 [virtual private cloud](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-getting-started) instance, in specified zone.
 * 1 [VPC virtual servers using bring your own custom F5-BigIP image](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-getting-started) instances per zone. 
-* 2 [VPC virtual servers using specified operarting system image)(https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-getting-started) instances per zone. The virtual servers installs NGINX hosting welcome page using cloud-init.
 
 **Not included**:
 * This is a poc work.
+* [Bring your F5 Custom Image](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-images#custom-images)
 
 ## Costs
 
@@ -48,12 +48,13 @@ Before you apply your template, you can customize the following default variable
 
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
-|`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`.|`us-south-1`|
-|`ssh_key_name`|The name of your public SSH key.|`VPCF5_ssh_key`|
-|`backend_image`|The ID of the image that represents the operating system that you want to install on your VPC as a demo application server. To list available images, run `ibmcloud is images`.|`ibm-ubuntu-18-04-64`|
+|`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|
+|`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned. To list available zones, run `ibmcloud is zones`.|`us-south-1`|
+|`vpc_name`|The name of your VPC to be provisioned.|`f5-bigip-1nic-demo-vpc`|
+|`ssh_key_name`|The name of your public SSH key.|`f5-ssh-pub-ke`|
+|`f5_vsi_name`|The name of your F5 Virtual Server to be provisioned.|`f5-bigip-1nic-demo-appliance`|
 |`profile`|Enter the profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`.|`bc1-2x8`|
-|`f5_license`|The BYOL license key that you want your F5 virtual server in a VPC to be used by registration flow during cloud-init.|`None`|
-
+|`f5_license`|Optional: The BYOL license key that you want your F5 virtual server in a VPC to be used by registration flow during cloud-init.|`None`|
 
 ## Outputs
 After you apply the template your VPC resources are successfully provisioned in IBM Cloud, you can review information such as the virtual server IP addresses and VPC identifiers in the Schematics log files, in the `Terraform SHOW` section.

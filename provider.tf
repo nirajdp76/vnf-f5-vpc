@@ -1,9 +1,10 @@
-variable "ibmcloud_api_key" {
-  description = "Enter your IBM Cloud API Key, you can get your IBM Cloud API key using: https://cloud.ibm.com/iam#/apikeys"
+variable "region" {
+  default = "us-south"
+  description = "The VPC Region that you want your VPC, networks and the F5 virtual server to be provisioned in. To list available regions, run `ibmcloud is regions`."
 }
 
 provider "ibm" {
-  ibmcloud_api_key      = "${var.ibmcloud_api_key}"
   generation            = 2
-  region                = "us-south"
+  region                = "${var.region}"
+  ibmcloud_timeout      = 300
 }
