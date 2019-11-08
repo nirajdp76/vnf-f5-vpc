@@ -18,5 +18,4 @@ provider "ibm" {
   generation            = "${var.generation}"
   region                = "${var.region}"
   ibmcloud_timeout      = 300
-  riaas_endpoint        = "${var.riaas_endpoint}"
 }
