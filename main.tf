@@ -1,15 +1,15 @@
-resource "ibm_is_vpc" "vpc1" {
+resource "ibm_is_vpc" "f5_vpc01" {
   name = "${var.vpc_name}"
 }
 
-resource "ibm_is_security_group" "sg1" {
+resource "ibm_is_security_group" "f5_sg01" {
   name = "f5-bigip-1nic-demo-sg1"
-  vpc  = "${ibm_is_vpc.vpc1.id}"
+  vpc  = "${ibm_is_vpc.f5_vpc01.id}"
 }
 
-resource "ibm_is_security_group_rule" "egress_all" {
-  depends_on = ["ibm_is_floating_ip.fip1"]
-  group      = "${ibm_is_vpc.vpc1.default_security_group}"
+resource "ibm_is_security_group_rule" "f5_egress_all" {
+  depends_on = ["ibm_is_floating_ip.f5_fip01"]
+  group      = "${ibm_is_vpc.f5_vpc01.default_security_group}"
   direction  = "outbound"
   remote     = "0.0.0.0/0"
 
@@ -19,9 +19,9 @@ resource "ibm_is_security_group_rule" "egress_all" {
   }
 }
 
-resource "ibm_is_security_group_rule" "sg1_rule1" {
-  depends_on = ["ibm_is_floating_ip.fip1"]
-  group      = "${ibm_is_vpc.vpc1.default_security_group}"
+resource "ibm_is_security_group_rule" "f5_sg01_rule1" {
+  depends_on = ["ibm_is_floating_ip.f5_fip01"]
+  group      = "${ibm_is_vpc.f5_vpc01.default_security_group}"
   direction  = "inbound"
   remote     = "0.0.0.0/0"
 
@@ -31,9 +31,9 @@ resource "ibm_is_security_group_rule" "sg1_rule1" {
   }
 }
 
-resource "ibm_is_security_group_rule" "sg1_rule2" {
-  depends_on = ["ibm_is_floating_ip.fip1"]
-  group      = "${ibm_is_vpc.vpc1.default_security_group}"
+resource "ibm_is_security_group_rule" "f5_sg01_rule2" {
+  depends_on = ["ibm_is_floating_ip.f5_fip01"]
+  group      = "${ibm_is_vpc.f5_vpc01.default_security_group}"
   direction  = "inbound"
   remote     = "0.0.0.0/0"
 
@@ -43,9 +43,9 @@ resource "ibm_is_security_group_rule" "sg1_rule2" {
   }
 }
 
-resource "ibm_is_security_group_rule" "sg1_rule3" {
-  depends_on = ["ibm_is_floating_ip.fip1"]
-  group      = "${ibm_is_vpc.vpc1.default_security_group}"
+resource "ibm_is_security_group_rule" "f5_sg01_rule3" {
+  depends_on = ["ibm_is_floating_ip.f5_fip01"]
+  group      = "${ibm_is_vpc.f5_vpc01.default_security_group}"
   direction  = "inbound"
   remote     = "0.0.0.0/0"
 
@@ -55,9 +55,9 @@ resource "ibm_is_security_group_rule" "sg1_rule3" {
   }
 }
 
-resource "ibm_is_security_group_rule" "sg1_icmp_rule" {
-  depends_on = ["ibm_is_floating_ip.fip1"]
-  group      = "${ibm_is_vpc.vpc1.default_security_group}"
+resource "ibm_is_security_group_rule" "f5_sg01_icmp_rule" {
+  depends_on = ["ibm_is_floating_ip.f5_fip01"]
+  group      = "${ibm_is_vpc.f5_vpc01.default_security_group}"
   direction  = "inbound"
   remote     = "0.0.0.0/0"
 
@@ -67,35 +67,36 @@ resource "ibm_is_security_group_rule" "sg1_icmp_rule" {
   }
 }
 
-resource "ibm_is_security_group_network_interface_attachment" "sgnic1" {
-  security_group    = "${ibm_is_security_group.sg1.id}"
-  network_interface = "${ibm_is_instance.ins1.primary_network_interface.0.id}"
+resource "ibm_is_security_group_network_interface_attachment" "f5_sgnic1" {
+  security_group    = "${ibm_is_security_group.f5_sg01.id}"
+  network_interface = "${ibm_is_instance.f5_vsi.primary_network_interface.0.id}"
 }
 
-resource "ibm_is_subnet" "subnet1" {
+resource "ibm_is_subnet" "f5_subnet1" {
   name            = "f5-bigip-1nic-demo-subnet1"
-  vpc             = "${ibm_is_vpc.vpc1.id}"
+  vpc             = "${ibm_is_vpc.f5_vpc01.id}"
   zone            = "${var.zone}"
   ipv4_cidr_block = "10.240.0.0/24"
 }
 
-resource "ibm_is_ssh_key" "ssh1" {
+resource "ibm_is_ssh_key" "f5_ssh01" {
   name       = "${var.ssh_key_name}"
   public_key = "${var.ssh_public_key}"
 }
 
-resource "ibm_is_instance" "ins1" {
+resource "ibm_is_instance" "f5_vsi" {
+  depends_on = ["ibm_is_public_gateway.gateway1"]
   name    = "${var.f5_vsi_name}"
   image   = "${var.f5_image}"
   profile = "${var.profile}"
 
   primary_network_interface = {
-    subnet = "${ibm_is_subnet.subnet1.id}"
+    subnet = "${ibm_is_subnet.f5_subnet1.id}"
   }
 
-  vpc  = "${ibm_is_vpc.vpc1.id}"
+  vpc  = "${ibm_is_vpc.f5_vpc01.id}"
   zone = "${var.zone}"
-  keys = ["${ibm_is_ssh_key.ssh1.id}"]
+  keys = ["${ibm_is_ssh_key.f5_ssh01.id}"]
   # user_data = "$(replace(file("f5-userdata.sh"), "F5-LICENSE-REPLACEMENT", var.f5_license)"
 
   //User can configure timeouts
@@ -105,14 +106,14 @@ resource "ibm_is_instance" "ins1" {
   }
 }
 
-resource ibm_is_floating_ip "fip1" {
+resource ibm_is_floating_ip "f5_fip01" {
   name   = "f5-bigip-1nic-demo-ip1"
-  target = "${ibm_is_instance.ins1.primary_network_interface.0.id}"
+  target = "${ibm_is_instance.f5_vsi.primary_network_interface.0.id}"
 }
 
-resource "ibm_is_public_gateway" "gateway1" {
-  name = "f5-bigip-1nic-demo-gateway1"
-  vpc  = "${ibm_is_vpc.vpc1.id}"
+resource "ibm_is_public_gateway" "f5_gatewayo1" {
+  name = "f5-bigip-1nic-demo-f5_gatewayo1"
+  vpc  = "${ibm_is_vpc.f5_vpc01.id}"
   zone = "${var.zone}"
 
   //User can configure timeouts
