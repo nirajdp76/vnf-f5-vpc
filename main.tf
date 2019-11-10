@@ -3,7 +3,7 @@ resource "ibm_is_vpc" "f5_vpc01" {
 }
 
 resource "ibm_is_security_group" "f5_sg01" {
-  name = "f5-bigip-1nic-demo-sg1"
+  name = "f5-bigip-1nic-demo-sg01"
   vpc  = "${ibm_is_vpc.f5_vpc01.id}"
 }
 
@@ -73,7 +73,7 @@ resource "ibm_is_security_group_network_interface_attachment" "f5_sgnic1" {
 }
 
 resource "ibm_is_subnet" "f5_subnet1" {
-  name            = "f5-bigip-1nic-demo-subnet1"
+  name            = "f5-bigip-1nic-demo-subnet01"
   vpc             = "${ibm_is_vpc.f5_vpc01.id}"
   zone            = "${var.zone}"
   ipv4_cidr_block = "10.240.0.0/24"
@@ -85,7 +85,7 @@ resource "ibm_is_ssh_key" "f5_ssh01" {
 }
 
 resource "ibm_is_instance" "f5_vsi" {
-  depends_on = ["ibm_is_public_gateway.gateway1"]
+  depends_on = ["ibm_is_public_gateway.f5_gateway01"]
   name    = "${var.f5_vsi_name}"
   image   = "${var.f5_image}"
   profile = "${var.profile}"
@@ -107,12 +107,12 @@ resource "ibm_is_instance" "f5_vsi" {
 }
 
 resource ibm_is_floating_ip "f5_fip01" {
-  name   = "f5-bigip-1nic-demo-ip1"
+  name   = "f5-bigip-1nic-demo-ip01"
   target = "${ibm_is_instance.f5_vsi.primary_network_interface.0.id}"
 }
 
-resource "ibm_is_public_gateway" "f5_gatewayo1" {
-  name = "f5-bigip-1nic-demo-f5_gatewayo1"
+resource "ibm_is_public_gateway" "f5_gateway01" {
+  name = "f5-bigip-1nic-demo-gateway01"
   vpc  = "${ibm_is_vpc.f5_vpc01.id}"
   zone = "${var.zone}"
 
