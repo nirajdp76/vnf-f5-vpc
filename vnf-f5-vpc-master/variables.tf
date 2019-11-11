@@ -19,7 +19,7 @@ variable "ssh_key_name" {
 }
 
 variable "f5_image" {
-  default = "r134-0ccdce3b-c1ed-46fe-9910-15a2d89e5478"
+  default = "r006-648e7564-a7e1-40d5-8e92-6ff67c26ce9c"
   description = "The ID of the F5 custom image provisioned in your IBM Cloud account. To list available images, run `ibmcloud is images`. The default image is for an `f5-bigip` image in a demo account."
 }
 
