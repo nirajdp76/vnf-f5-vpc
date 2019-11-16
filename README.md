@@ -10,6 +10,11 @@ With this template, you can use IBM Cloud Schematics to create F5-BIGIP virtual 
 * This is a poc work.
 * [Bring your F5 Custom Image](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-images#custom-images)
 
+**Must have IBM IS Terraform Provider fixes**:
+* Provide `data source for ibm_loogin_target` that would provide some key information from provider session (example: account-id)
+* Provide `resource for ibm_is_image` - IS Image create, update, delete
+* Catalog offering Deployment variable must provide way to mark some variable sensitive (example: vendor svc account apikey)
+
 ## Costs
 
 When you apply template, the infrastructure resources that you create incur charges as follows. To clean up the resources, you can [delete your Schematics workspace or your instance](https://cloud.ibm.com/docs/schematics?topic=schematics-manage-lifecycle#destroy-resources). Removing the workspace or the instance cannot be undone. Make sure that you back up any data that you must keep before you start the deletion process.
@@ -48,14 +53,20 @@ Before you apply your template, you can customize the following default variable
 
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
+|`ibmcloud_api_key`|Temp Hack to workaround IBM IS Provider gap. The APIKey of the IBM Cloud account where resources will be provisioned.|`None`|
+|`ibmcloud_vnf_svc_api_key`|The APIKey of the IBM Cloud NFV service account that is hosting the F5-BIGIP qcow2 image file.|`None`|
 |`generation`|The VPC Generation to target. Valid values are 2 or 1..|`2`|
 |`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|
 |`zone`|The VPC Zone that you want your VPC virtual servers to be provisioned. To list available zones, run `ibmcloud is zones`.|`us-south-1`|
-|`vpc_name`|The name of your VPC to be provisioned.|`f5-bigip-1nic-demo-vpc`|
-|`ssh_key_name`|The name of your public SSH key.|`f5-ssh-pub-ke`|
-|`f5_vsi_name`|The name of your F5 Virtual Server to be provisioned.|`f5-bigip-1nic-demo-appliance`|
+|`resource_group`|The resource group to use. If unspecified, the account's default resource group is used. To list available resource groups, run `ibmcloud resource groups`.|`Default`|
+|`vpc_name`|The name of your VPC to be provisioned.|`f5-1arm-vpc`|
+|`ssh_key_name`|The name of your public SSH key.|`f5-sshkey`|
+|`f5_image_name`|The name of the F5 custom image to be provisioned in your IBM Cloud account.|`f5-bigip-15-0-1-0-0-11`|
+|`f5_vsi_name`|The name of your F5 Virtual Server to be provisioned.|`f5-1arm-vsi`|
 |`profile`|Enter the profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`.|`bx2-2x8`|
 |`f5_license`|Optional: The BYOL license key that you want your F5 virtual server in a VPC to be used by registration flow during cloud-init.|`None`|
+|`vnf_f5bigip_cos_instance_id`|Hidden: The COS instance-id hosting the F5-BIGIP qcow2 image.|`NA`|
+|`vnf_f5bigip_cos_image_url`|The COS image object url for F5-BIGIP qcow2 image.|`NA`|
 
 ## Outputs
 After you apply the template your VPC resources are successfully provisioned in IBM Cloud, you can review information such as the virtual server IP addresses and VPC identifiers in the Schematics log files, in the `Terraform SHOW` section.

@@ -1,10 +1,19 @@
+variable "vnf_f5bigip_cos_instance_id" {
+  default     = ""
+  description = "The COS instance-id hosting the F5-BIGIP qcow2 image."
+}
+variable "vnf_f5bigip_cos_image_url" {
+  default     = ""
+  description = "The COS image object url for F5-BIGIP qcow2 image."
+}
+
 variable "zone" {
   default = "us-south-1"
   description = "The VPC Zone that you want your VPC networks and virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`."
 }
 
 variable "vpc_name" {
-  default = "f5-bigip-1nic-demo-vpc"
+  default = "f5-1arm-vpc"
   description = "The name of your VPC to be provisioned."
 }
 
@@ -14,17 +23,17 @@ variable "ssh_public_key" {
 }
 
 variable "ssh_key_name" {
-  default = "f5-ssh-pub-key"
+  default = "f5-sshkey"
   description = "The name of the public SSH key."
 }
 
-variable "f5_image" {
-  default = "r134-0ccdce3b-c1ed-46fe-9910-15a2d89e5478"
-  description = "The ID of the F5 custom image provisioned in your IBM Cloud account. To list available images, run `ibmcloud is images`. The default image is for an `f5-bigip` image in a demo account."
+variable "f5_image_name" {
+  default = "f5-bigip-15-0-1-0-0-11"
+  description = "The name of the F5 custom image to be provisioned in your IBM Cloud account."
 }
 
 variable "f5_vsi_name" {
-  default = "f5-bigip-1nic-demo-appliance"
+  default = "f5-1arm-vsi"
   description = "The name of your F5 Virtual Server to be provisioned."
 }
 
