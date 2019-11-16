@@ -1,3 +1,7 @@
+variable "vnf_cos_instance_id" {
+  default     = ""
+  description = "The COS instance-id hosting the F5-BIGIP qcow2 image."
+}
 variable "zone" {
   default = "us-south-1"
   description = "The VPC Zone that you want your VPC networks and virtual servers to be provisioned in. To list available zones, run `ibmcloud is zones`."
