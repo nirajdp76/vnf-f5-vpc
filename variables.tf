@@ -35,7 +35,7 @@ variable "zone" {
 # vpc_name - VPC where resources are to be provisioned.
 ##############################################################################
 variable "vpc_name" {
-  default     = "f5-1arm-vpc"
+  default     = ""
   description = "The name of your VPC where F5-BIGIP VSI is to be provisioned."
 }
 
@@ -43,7 +43,7 @@ variable "vpc_name" {
 # ssh_key_name - The name of the public SSH key to be used when provisining F5-BIGIP VSI.
 ##############################################################################
 variable "ssh_key_name" {
-  default     = "f5-1arm-sshkey"
+  default     = ""
   description = "The name of the public SSH key to be used when provisining F5-BIGIP VSI."
 }
 
@@ -74,9 +74,4 @@ variable "f5_profile" {
 variable "f5_license" {
   default     = ""
   description = "Optional. The BYOL license key that you want your F5 virtual server in a VPC to be used by registration flow during cloud-init."
-}
-
-variable "ibmcloud_endpoint" {
-  default     = "cloud.ibm.com"
-  description = "[Temp Hack] Optional. The IBM Cloud endpoint used by create_image_hack script."
 }

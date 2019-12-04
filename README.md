@@ -51,7 +51,6 @@ Before you apply your template, you can customize the following default variable
 
 |Variable Name|Description|Default Value|
 |-------------|-----------|-------------|
-|`ibmcloud_api_key`|[Temp hack] to workaround IBM IS Provider (Image Create) gap. The APIKey of the IBM Cloud account where resources will be provisioned.|`None`|
 |`ibmcloud_vnf_svc_api_key`|The APIKey of the IBM Cloud NFV service account that is hosting the F5-BIGIP qcow2 image file.|`None`|
 |`generation`|The VPC Generation to target. Valid values are 2 or 1..|`2`|
 |`region`|The VPC Region that you want your VPC to be provisioned. To list available zones, run `ibmcloud is regions`.|`us-south`|

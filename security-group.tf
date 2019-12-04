@@ -3,7 +3,7 @@
 ##############################################################################
 #FIXME - set rules on f5_sg01
 resource "ibm_is_security_group" "f5_sg01" {
-  name = "f5-bigip-1nic-demo-sg01"
+  name = "${var.vpc_name}-sg01"
   vpc  = "${data.ibm_is_vpc.f5_vpc.id}"
 }
 

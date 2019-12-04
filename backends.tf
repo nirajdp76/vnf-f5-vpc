@@ -22,7 +22,7 @@ data "ibm_is_image" "ubuntu_18_image" {
 
 resource "ibm_is_instance" "backend_vsi" {
   count     = 2
-  name      = "backend-vsi-0${count.index}"
+  name      = "${var.vpc_name}-backend-vsi-0${count.index}"
   image     = "${data.ibm_is_image.ubuntu_18_image.id}"
   profile   = "cx2-2x4"
 
